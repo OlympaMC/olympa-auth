@@ -3,11 +3,12 @@ package fr.olympa.auth;
 import org.bukkit.Location;
 import org.bukkit.plugin.PluginManager;
 
-import fr.olympa.api.plugin.OlympaPlugin;
+import fr.olympa.api.plugin.OlympaAPIPlugin;
 import fr.olympa.auth.join.JoinListener;
 import fr.olympa.auth.join.ProtectListener;
+import fr.olympa.auth.login.LoginListener;
 
-public class OlympaAuth extends OlympaPlugin {
+public class OlympaAuth extends OlympaAPIPlugin {
 
 	private static OlympaAuth instance;
 
@@ -34,6 +35,7 @@ public class OlympaAuth extends OlympaPlugin {
 		PluginManager pluginManager = this.getServer().getPluginManager();
 		pluginManager.registerEvents(new JoinListener(), this);
 		pluginManager.registerEvents(new ProtectListener(), this);
+		pluginManager.registerEvents(new LoginListener(), this);
 
 		this.sendMessage("§2" + this.getDescription().getName() + "§a (" + this.getDescription().getVersion() + ") est activé.");
 	}

@@ -2,12 +2,14 @@ package fr.olympa.auth.join;
 
 import java.util.Arrays;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
@@ -37,13 +39,15 @@ public class JoinListener implements Listener {
 		for (PotionEffect effect : player.getActivePotionEffects()) {
 			player.removePotionEffect(effect.getType());
 		}
-		player.setHealthScale(2);
-		player.setHealth(player.getHealthScale());
+		player.setMaxHealth(2);
+		player.setHealth(player.getMaxHealth());
 		player.setAllowFlight(false);
 		player.setFlying(false);
+		player.setWalkSpeed(0.2f);
 		player.setFlySpeed(0.1f);
 		player.setFoodLevel(20);
 		player.setExp(0);
+		player.setLevel(0);
 		player.setFlying(false);
 		player.setCanPickupItems(false);
 	}
@@ -51,21 +55,34 @@ public class JoinListener implements Listener {
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		player.setWalkSpeed(0);
 		Location spawn = OlympaAuth.getInstance().getSpawn();
 		if (spawn != null) {
 			player.teleport(spawn);
 		}
 		this.init(player);
-		player.sendTitle(SpigotUtils.color("&3⬣ &e&lOlympa &3 ⬣"), SpigotUtils.color("&dBienvenue " + player.getName() + "!"), 0, 40, 0);
-		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, -10, false, false), true);
-		OlympaCore.getInstance().getTask().runTaskLater(() -> FireWorkUtils.spawnWelcomeFireworks(player.getLocation()), 2 * 20);
+		player.sendTitle(SpigotUtils.color("&3⬣ &e&lOlympa &3 ⬣"), SpigotUtils.color("&dBienvenue " + player.getName() + "!"), 0, 60, 0);
+		player.setWalkSpeed(0);
+		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 128, false, false), true);
+		OlympaCore.getInstance().getTask().runTaskLater(() -> FireWorkUtils.spawnWelcomeFireworks(player.getLocation()), 4 * 20);
+		Bukkit.getOnlinePlayers().stream().forEach(p -> {
+			player.hidePlayer(OlympaAuth.getInstance(), p);
+			p.hidePlayer(OlympaAuth.getInstance(), player);
+		});
+	}
+
+	@EventHandler
+	public void onPlayerMove(PlayerMoveEvent event) {
+		Player player = event.getPlayer();
+		Location playerLoc = player.getLocation();
+		Location toLoc = event.getTo();
+		if (player.getGameMode() != GameMode.CREATIVE && (playerLoc.getX() != toLoc.getX() || playerLoc.getZ() != toLoc.getZ())) {
+			event.setTo(event.getFrom());
+		}
 	}
 
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
-		player.setWalkSpeed(0.2f);
 		Location spawn = OlympaAuth.getInstance().getSpawn();
 		if (spawn != null) {
 			player.teleport(spawn);
@@ -83,6 +100,7 @@ public class JoinListener implements Listener {
 			event.setRespawnLocation(spawn);
 		}
 		this.init(player);
-		player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, Integer.MAX_VALUE, -10, false, false), true);
+		player.setWalkSpeed(0.2f);
+		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 128, false, false), true);
 	}
 }

@@ -21,12 +21,14 @@ public class LoginListener implements Listener {
 		Player player = event.getPlayer();
 		OlympaPlayer olympaPlayer = event.getOlympaPlayer();
 
-		TextComponent textComponent = new TextComponent("----------------");
-		textComponent.setColor(ChatColor.DARK_RED);
-		textComponent.setBold(true);
-		textComponent.setObfuscated(true);
+		TextComponent textComponent = new TextComponent();
+		TextComponent textComponent2 = new TextComponent("----------------");
+		textComponent2.setColor(ChatColor.DARK_RED);
+		textComponent2.setBold(true);
+		textComponent2.setObfuscated(true);
+		textComponent.addExtra(textComponent2);
 
-		TextComponent textComponent2 = new TextComponent(" [");
+		textComponent2 = new TextComponent(" [");
 		textComponent2.setColor(ChatColor.GRAY);
 		textComponent.addExtra(textComponent2);
 
