@@ -4,9 +4,9 @@ import org.bukkit.Location;
 import org.bukkit.plugin.PluginManager;
 
 import fr.olympa.api.plugin.OlympaAPIPlugin;
+import fr.olympa.auth.join.CancelActionListener;
 import fr.olympa.auth.join.JoinListener;
-import fr.olympa.auth.join.ProtectListener;
-import fr.olympa.auth.login.LoginListener;
+import fr.olympa.auth.join.ProtectMapListener;
 
 public class OlympaAuth extends OlympaAPIPlugin {
 
@@ -19,24 +19,24 @@ public class OlympaAuth extends OlympaAPIPlugin {
 	private Location spawn;
 
 	public Location getSpawn() {
-		return this.spawn;
+		return spawn;
 	}
 
 	@Override
 	public void onDisable() {
-		this.sendMessage("§4" + this.getDescription().getName() + "§c (" + this.getDescription().getVersion() + ") est désativer.");
+		sendMessage("§4" + getDescription().getName() + "§c (" + getDescription().getVersion() + ") est désativer.");
 	}
 
 	@Override
 	public void onEnable() {
 		instance = this;
-		this.spawn = new Location(this.getServer().getWorlds().get(0), 0.5, 69.2, 0.5, -90, 0);
+		spawn = new Location(getServer().getWorlds().get(0), 0.5, 69.2, 0.5, -90, 0);
 
-		PluginManager pluginManager = this.getServer().getPluginManager();
+		PluginManager pluginManager = getServer().getPluginManager();
 		pluginManager.registerEvents(new JoinListener(), this);
-		pluginManager.registerEvents(new ProtectListener(), this);
-		pluginManager.registerEvents(new LoginListener(), this);
+		pluginManager.registerEvents(new ProtectMapListener(), this);
+		pluginManager.registerEvents(new CancelActionListener(), this);
 
-		this.sendMessage("§2" + this.getDescription().getName() + "§a (" + this.getDescription().getVersion() + ") est activé.");
+		sendMessage("§2" + getDescription().getName() + "§a (" + getDescription().getVersion() + ") est activé.");
 	}
 }

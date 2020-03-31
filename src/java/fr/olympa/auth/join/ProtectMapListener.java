@@ -23,7 +23,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
-public class ProtectListener implements Listener {
+public class ProtectMapListener implements Listener {
 
 	private boolean canI(Player player) {
 		return player.getGameMode() == GameMode.CREATIVE;
