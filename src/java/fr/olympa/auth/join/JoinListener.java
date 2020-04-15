@@ -20,7 +20,7 @@ import org.bukkit.potion.PotionEffectType;
 import fr.olympa.api.customevents.OlympaPlayerLoadEvent;
 import fr.olympa.api.firework.FireWorkUtils;
 import fr.olympa.api.localdata.PlayerLocalData;
-import fr.olympa.api.utils.SpigotUtils;
+import fr.olympa.api.utils.ColorUtils;
 import fr.olympa.auth.OlympaAuth;
 import fr.olympa.core.spigot.OlympaCore;
 
@@ -67,7 +67,7 @@ public class JoinListener implements Listener {
 			player.teleport(spawn);
 		}
 		init(player);
-		player.sendTitle(SpigotUtils.color("&3⬣ &e&lOlympa &3 ⬣"), SpigotUtils.color("&dBienvenue " + player.getName() + "!"), 0, 60, 0);
+		player.sendTitle(ColorUtils.color("&3⬣ &e&lOlympa &3 ⬣"), ColorUtils.color("&dBienvenue " + player.getName() + "!"), 0, 60, 0);
 		player.setWalkSpeed(0);
 		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 128, false, false));
 		OlympaCore.getInstance().getTask().runTaskLater(() -> FireWorkUtils.spawnWelcomeFireworks(player.getLocation()), 4 * 20);

@@ -9,8 +9,8 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+import fr.olympa.api.utils.ColorUtils;
 import fr.olympa.api.utils.Prefix;
-import fr.olympa.api.utils.SpigotUtils;
 
 public class CancelActionListener implements Listener {
 
@@ -18,7 +18,7 @@ public class CancelActionListener implements Listener {
 	public void onPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
 		if (player.getGameMode() != GameMode.CREATIVE) {
-			player.sendMessage(Prefix.DEFAULT_BAD + SpigotUtils.color("Impossible de discuter ici."));
+			player.sendMessage(Prefix.DEFAULT_BAD + ColorUtils.color("Impossible de discuter ici."));
 			event.setCancelled(true);
 		}
 	}
@@ -27,7 +27,7 @@ public class CancelActionListener implements Listener {
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
 		Player player = event.getPlayer();
 		if (player.getGameMode() != GameMode.CREATIVE) {
-			player.sendMessage(Prefix.DEFAULT + SpigotUtils.color("Pour te connecter, fait /login <mot de passe>"));
+			player.sendMessage(Prefix.DEFAULT + ColorUtils.color("Pour te connecter, fait /login <mot de passe>"));
 			event.setCancelled(true);
 		}
 	}
