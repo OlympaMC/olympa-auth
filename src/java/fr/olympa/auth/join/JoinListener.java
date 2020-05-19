@@ -7,7 +7,6 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -17,10 +16,9 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import fr.olympa.api.customevents.OlympaPlayerLoadEvent;
-import fr.olympa.api.firework.FireWorkUtils;
-import fr.olympa.api.localdata.PlayerLocalData;
 import fr.olympa.api.utils.ColorUtils;
+import fr.olympa.api.utils.spigot.FireWorkUtils;
+import fr.olympa.api.utils.spigot.SpigotUtils;
 import fr.olympa.auth.OlympaAuth;
 import fr.olympa.core.spigot.OlympaCore;
 
@@ -54,11 +52,6 @@ public class JoinListener implements Listener {
 		player.setCanPickupItems(false);
 	}
 
-	@EventHandler(priority = EventPriority.HIGH)
-	public void onPlayerJoin(OlympaPlayerLoadEvent event) {
-		event.setJoinMessage(null);
-	}
-
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
@@ -75,6 +68,7 @@ public class JoinListener implements Listener {
 			player.hidePlayer(OlympaAuth.getInstance(), p);
 			p.hidePlayer(OlympaAuth.getInstance(), player);
 		});
+		event.setJoinMessage(null);
 	}
 
 	@EventHandler
@@ -86,7 +80,7 @@ public class JoinListener implements Listener {
 		}
 		init(player);
 		// TODO TEST
-		PlayerLocalData.delete(player);
+		SpigotUtils.deletePlayerLocalData(player);
 		event.setQuitMessage(null);
 	}
 
