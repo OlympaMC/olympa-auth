@@ -67,6 +67,7 @@ public class JoinListener implements Listener {
 			player.hidePlayer(OlympaAuth.getInstance(), p);
 			p.hidePlayer(OlympaAuth.getInstance(), player);
 		});
+		event.setJoinMessage(null);
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -82,7 +83,7 @@ public class JoinListener implements Listener {
 			player.teleport(spawn);
 		init(player);
 	}
-	
+
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerQuit2(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
