@@ -17,13 +17,13 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import fr.olympa.api.customevents.OlympaPlayerLoadEvent;
-import fr.olympa.api.firework.FireWorkUtils;
-import fr.olympa.api.localdata.PlayerLocalData;
 import fr.olympa.api.utils.ColorUtils;
+import fr.olympa.api.utils.spigot.FireWorkUtils;
+import fr.olympa.api.utils.spigot.SpigotUtils;
 import fr.olympa.auth.OlympaAuth;
 import fr.olympa.core.spigot.OlympaCore;
 
+@SuppressWarnings("deprecation")
 public class JoinListener implements Listener {
 
 	public int clear(Player player) {
@@ -34,13 +34,11 @@ public class JoinListener implements Listener {
 		return size;
 	}
 
-	@SuppressWarnings("deprecation")
 	public void init(Player player) {
 		clear(player);
 		player.setGameMode(GameMode.ADVENTURE);
-		for (PotionEffect effect : player.getActivePotionEffects()) {
+		for (PotionEffect effect : player.getActivePotionEffects())
 			player.removePotionEffect(effect.getType());
-		}
 		player.setMaxHealth(2);
 		player.setHealth(player.getMaxHealth());
 		player.setAllowFlight(false);
@@ -54,18 +52,12 @@ public class JoinListener implements Listener {
 		player.setCanPickupItems(false);
 	}
 
-	@EventHandler(priority = EventPriority.HIGH)
-	public void onPlayerJoin(OlympaPlayerLoadEvent event) {
-		event.setJoinMessage(null);
-	}
-
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		Location spawn = OlympaAuth.getInstance().getSpawn();
-		if (spawn != null) {
+		if (spawn != null)
 			player.teleport(spawn);
-		}
 		init(player);
 		player.sendTitle(ColorUtils.color("&3⬣ &e&lOlympa &3 ⬣"), ColorUtils.color("&dBienvenue " + player.getName() + "!"), 0, 60, 0);
 		player.setWalkSpeed(0);
@@ -77,16 +69,25 @@ public class JoinListener implements Listener {
 		});
 	}
 
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onPlayerJoin2(PlayerJoinEvent event) {
+		event.setJoinMessage(null);
+	}
+
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();
 		Location spawn = OlympaAuth.getInstance().getSpawn();
-		if (spawn != null) {
+		if (spawn != null)
 			player.teleport(spawn);
-		}
 		init(player);
+	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onPlayerQuit2(PlayerQuitEvent event) {
+		Player player = event.getPlayer();
 		// TODO TEST
-		PlayerLocalData.delete(player);
+		OlympaCore.getInstance().getTask().runTaskLater(() -> SpigotUtils.deletePlayerLocalData(player), 1);
 		event.setQuitMessage(null);
 	}
 
@@ -95,9 +96,8 @@ public class JoinListener implements Listener {
 		Player player = event.getPlayer();
 		player.setWalkSpeed(0);
 		Location spawn = OlympaAuth.getInstance().getSpawn();
-		if (spawn != null) {
+		if (spawn != null)
 			event.setRespawnLocation(spawn);
-		}
 		init(player);
 		player.setWalkSpeed(0.2f);
 		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 128, false, false), true);
