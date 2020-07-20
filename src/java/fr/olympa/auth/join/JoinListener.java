@@ -62,6 +62,7 @@ public class JoinListener implements Listener {
 		player.sendTitle(ColorUtils.color("&3⬣ &e&lOlympa &3 ⬣"), ColorUtils.color("&dBienvenue " + player.getName() + "!"), 0, 60, 0);
 		player.setWalkSpeed(0);
 		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 128, false, false));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 128, false, false));
 		OlympaCore.getInstance().getTask().runTaskLater(() -> FireWorkUtils.spawnWelcomeFireworks(player.getLocation()), 4 * 20);
 		Bukkit.getOnlinePlayers().stream().forEach(p -> {
 			player.hidePlayer(OlympaAuth.getInstance(), p);

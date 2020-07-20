@@ -4,6 +4,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -14,7 +15,7 @@ import fr.olympa.api.utils.Prefix;
 
 public class CancelActionListener implements Listener {
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
 		if (player.getGameMode() != GameMode.CREATIVE) {
@@ -23,7 +24,7 @@ public class CancelActionListener implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.LOWEST)
 	public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
 		Player player = event.getPlayer();
 		if (player.getGameMode() != GameMode.CREATIVE) {
@@ -37,8 +38,7 @@ public class CancelActionListener implements Listener {
 		Player player = event.getPlayer();
 		Location playerLoc = player.getLocation();
 		Location toLoc = event.getTo();
-		if (player.getGameMode() != GameMode.CREATIVE && (playerLoc.getX() != toLoc.getX() || playerLoc.getZ() != toLoc.getZ())) {
+		if (player.getGameMode() != GameMode.CREATIVE && (playerLoc.getX() != toLoc.getX() || playerLoc.getZ() != toLoc.getZ()))
 			event.setTo(event.getFrom());
-		}
 	}
 }
