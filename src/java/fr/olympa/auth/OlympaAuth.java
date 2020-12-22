@@ -4,9 +4,11 @@ import org.bukkit.Location;
 import org.bukkit.plugin.PluginManager;
 
 import fr.olympa.api.plugin.OlympaAPIPlugin;
+import fr.olympa.api.server.OlympaServer;
 import fr.olympa.auth.join.CancelActionListener;
 import fr.olympa.auth.join.JoinListener;
 import fr.olympa.auth.join.ProtectMapListener;
+import fr.olympa.core.spigot.OlympaCore;
 
 public class OlympaAuth extends OlympaAPIPlugin {
 
@@ -30,6 +32,7 @@ public class OlympaAuth extends OlympaAPIPlugin {
 	@Override
 	public void onEnable() {
 		instance = this;
+		OlympaCore.getInstance().setOlympaServer(OlympaServer.AUTH);
 		spawn = new Location(getServer().getWorlds().get(0), 0.5, 69.2, 0.5, -90, 0);
 
 		PluginManager pluginManager = getServer().getPluginManager();
