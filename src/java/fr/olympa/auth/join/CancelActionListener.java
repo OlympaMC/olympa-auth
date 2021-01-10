@@ -10,7 +10,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-import fr.olympa.api.utils.ColorUtils;
+import fr.olympa.api.chat.ColorUtils;
 import fr.olympa.api.utils.Prefix;
 
 public class CancelActionListener implements Listener {

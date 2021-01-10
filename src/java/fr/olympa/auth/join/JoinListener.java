@@ -17,7 +17,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import fr.olympa.api.utils.ColorUtils;
+import fr.olympa.api.chat.ColorUtils;
 import fr.olympa.api.utils.spigot.FireWorkUtils;
 import fr.olympa.api.utils.spigot.SpigotUtils;
 import fr.olympa.auth.OlympaAuth;
