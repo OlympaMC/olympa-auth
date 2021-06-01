@@ -3,8 +3,8 @@ package fr.olympa.auth;
 import org.bukkit.Location;
 import org.bukkit.plugin.PluginManager;
 
-import fr.olympa.api.plugin.OlympaAPIPlugin;
-import fr.olympa.api.server.OlympaServer;
+import fr.olympa.api.common.plugin.OlympaAPIPlugin;
+import fr.olympa.api.common.server.OlympaServer;
 import fr.olympa.auth.join.CancelActionListener;
 import fr.olympa.auth.join.JoinListener;
 import fr.olympa.auth.join.ProtectMapListener;
