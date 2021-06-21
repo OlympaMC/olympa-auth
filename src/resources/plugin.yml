@@ -1,6 +1,7 @@
 name: OlympaAuth
 main: fr.olympa.auth.OlympaAuth
 author: Tristiisch
-api-version: 1.15
+version: @plugin_version@
+api-version: 1.16
 version: 0.1
-softdepend: [OlympaCore, OlympaAPI]
+depend: [OlympaCore]
